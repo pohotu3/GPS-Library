@@ -2,6 +2,15 @@
 Thumbs.db
 ehthumbs.db
 
+# IGNORE ALL
+*
+
+#Except these
+!*.gitignore
+!*.gitattributes
+!*.cpp
+!*.h
+
 # Folder config file
 Desktop.ini
 
@@ -45,17 +54,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-
-# Project Specific
-*.sln
-*.sdf
-*.exe
-*.ilk
-*.pdb
-*.filters
-*.vcxproj
-*.tlog
-*.obj
-*.idb
-*.lastbuildstate
-*.suo

@@ -11,14 +11,13 @@ accessed sequentially by calling the function Tokenizer.next()
 
 																			  
 ***************************************************************************//**/
-#pragma once
 #include <sstream>
 #include <vector>
 
 using namespace std;
 
 #ifndef _TOKENIZER_H_
-#define _TOKENIZER_H_ 1
+#define _TOKENIZER_H_
 
 class Tokenizer {
 public:

@@ -1,4 +1,3 @@
-#pragma once
 #include "Tokenizer.h"
 #include <iostream>
 #include <algorithm>
@@ -71,7 +70,7 @@ double gps::distance(const gps g1, const gps g2, bool metric)
 	double delta_LONG;
 
 	delta_LAT = (g2.point_LAT - g1.point_LAT) * M_PI / 360;
-	delta_LONG = (g2.point_LONG + g1.point_LONG) * M_PI / 360;
+	delta_LONG = (g2.point_LONG - g1.point_LONG) * M_PI / 360;
 
 	a = sin(delta_LAT)*sin(delta_LAT) + cos(g1.rad_LAT)*cos(g2.rad_LAT)*
 		sin(delta_LONG)*sin(delta_LONG);

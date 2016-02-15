@@ -1,6 +1,4 @@
-#pragma once
 #include "GPS.h"
-#include <iostream>
 
 
 int main()
