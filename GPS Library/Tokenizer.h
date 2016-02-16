@@ -11,14 +11,13 @@ accessed sequentially by calling the function Tokenizer.next()
 
 																			  
 ***************************************************************************//**/
-#pragma once
 #include <sstream>
 #include <vector>
 
 using namespace std;
 
 #ifndef _TOKENIZER_H_
-#define _TOKENIZER_H_ 1
+#define _TOKENIZER_H_
 
 class Tokenizer {
 public:
@@ -29,6 +28,7 @@ public:
 	{ 
 		return !done() ? *current++ : string(); 
 	}
+	//terminates object output when token vector runs out of tokens
 	bool done() const 
 	{ 
 		return current == tokens.end(); 
