@@ -10,6 +10,7 @@ ehthumbs.db
 !*.gitattributes
 !*.cpp
 !*.h
+!*/
 
 # Folder config file
 Desktop.ini

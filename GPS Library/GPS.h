@@ -16,11 +16,13 @@ static const bool DEBUG_MESSAGES = true;
 
 class gps
 {
-public:
+public: 
 	gps();
-	gps(gps &g);
+	gps(const gps &g);
 	~gps();
 	double distance(const gps g1, const gps g2, bool metric);
+	double midpoint(const gps g1, const gps g2, gps &g3);
+	void print();
 	void enterCoordinates(bool default_Prompts);
 	void parseCoordinates(string s);
 	void rad();
@@ -45,7 +47,7 @@ gps::gps()
 
 
 
-gps::gps(gps &g)
+gps::gps(const gps &g)
 {
 	point_LAT = g.point_LAT;
 	point_LONG = g.point_LONG;
@@ -118,7 +120,7 @@ void gps::parseCoordinates(string s)
 	float sec_LAT = 0.0;
 	float sec_LONG = 0.0;
 	string temp;
-	Tokenizer t(s, ' ');
+	Tokenizer t(s, ' ');		//initializing this tokenizes
 
 
 	transform(s.begin(), s.end(), s.begin(), toupper);
@@ -127,7 +129,7 @@ void gps::parseCoordinates(string s)
 
 	if (temp.find(".") == string::npos)
 	{
-		//format xx xx xxD xx xx xxD
+		//translates lateral coordinate inputs to integers and floats
 		deg_LAT = stoi(temp);
 		min_LAT = stoi(t.next());
 		temp = t.next();
@@ -135,6 +137,8 @@ void gps::parseCoordinates(string s)
 			neg_LAT = true;
 		temp.pop_back();
 		sec_LAT = stof(temp);
+
+		//translates longitudinal coordinate inputs to integers and floats
 		deg_LONG = stoi(t.next());
 		min_LONG = stoi(t.next());
 		temp = t.next();
@@ -143,24 +147,13 @@ void gps::parseCoordinates(string s)
 		temp.pop_back();
 		sec_LONG = stof(temp);
 
-		if (DEBUG_MESSAGES)
-		{
-			cout << deg_LAT << '\t' << min_LAT << '\t' << sec_LAT << '\t';
-			if (neg_LAT)
-				cout << 'S' << endl;
-			else
-				cout << 'N' << endl;
-			cout << deg_LONG << '\t' << min_LONG << '\t' << sec_LONG << '\t';
-			if (neg_LONG)
-				cout << 'W' << endl;
-			else
-				cout << 'E' << endl;
-		}
+		//converts degree, minute, second coordinate to decimal degree coordinate
 		point_LAT = (double)deg_LAT + (double)min_LAT / 60
 			+ (double)sec_LAT / 3600;
 		point_LONG = (double)deg_LONG + (double)min_LONG / 60
 			+ (double)sec_LONG / 3600;
 
+		//Changes sign of coordinates based on hemispheres
 		if (neg_LAT)
 			point_LAT = point_LAT*-1;
 		if (neg_LONG)
@@ -170,7 +163,7 @@ void gps::parseCoordinates(string s)
 	}
 	else
 	{
-		//format xx.xxxx xx.xxxx
+		//Assignes decimal degree coordinate data to variables
 		point_LAT = stoi(temp);
 		point_LONG = stoi(t.next());
 	}
@@ -182,6 +175,7 @@ void gps::parseCoordinates(string s)
 
 void gps::rad()
 {
+	//converts decimal degree coordinates to radial coordinates
 	rad_LAT = point_LAT* M_PI / 180;
 	rad_LONG = point_LONG* M_PI / 180;
 	return;

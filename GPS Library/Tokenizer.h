@@ -28,6 +28,7 @@ public:
 	{ 
 		return !done() ? *current++ : string(); 
 	}
+	//terminates object output when token vector runs out of tokens
 	bool done() const 
 	{ 
 		return current == tokens.end(); 
