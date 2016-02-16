@@ -20,6 +20,8 @@ private:
 	float seconds;
 };
 
+
+
 bearing::bearing()
 {
 	degrees = 0;

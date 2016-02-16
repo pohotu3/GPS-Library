@@ -1,15 +1,18 @@
-#include "GPS.h"
+#include "trip.h"
 
 
 int main()
 {
 	gps g1;
 	gps g2;
+	trip t;
 	
 	g1.enterCoordinates(true);
 	g2.enterCoordinates(true);
 
-	cout << g1.distance(g1, g2, true) << endl;
-	return 1;
+	t.newCoordinates(g1, g2);
+
+	cout << t.getDistanceM() << endl;
+	return 0;
 
 }

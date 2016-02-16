@@ -6,14 +6,6 @@
 #ifndef _GPS_H_
 #define _GPS_H_
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
-
-static const short int EARTH_RADIUS_MILES = 3959;
-static const short int EARTH_RADIUS_KILOMETERS = 6371;
-static const bool DEBUG_MESSAGES = true;
-
 class gps
 {
 public: 
@@ -25,14 +17,12 @@ public:
 	void print();
 	void enterCoordinates(bool default_Prompts);
 	void parseCoordinates(string s);
-	void rad();
-
+	double getLat();
+	double getLong();
 
 private:
 	double point_LAT;
 	double point_LONG;
-	double rad_LAT;
-	double rad_LONG;
 };
 
 
@@ -41,8 +31,6 @@ gps::gps()
 {
 	point_LAT = 0.0;
 	point_LONG = 0.0;
-	rad_LAT = 0.0;
-	rad_LONG = 0.0;
 }
 
 
@@ -51,8 +39,6 @@ gps::gps(const gps &g)
 {
 	point_LAT = g.point_LAT;
 	point_LONG = g.point_LONG;
-	rad_LAT = g.rad_LAT;
-	rad_LONG = g.rad_LONG;
 }
 
 
@@ -60,29 +46,6 @@ gps::gps(const gps &g)
 gps::~gps()
 {
 
-}
-
-
-
-double gps::distance(const gps g1, const gps g2, bool metric)
-{
-	double a;
-	double c;
-	double delta_LAT;
-	double delta_LONG;
-
-	delta_LAT = (g2.point_LAT - g1.point_LAT) * M_PI / 360;
-	delta_LONG = (g2.point_LONG - g1.point_LONG) * M_PI / 360;
-
-	a = sin(delta_LAT)*sin(delta_LAT) + cos(g1.rad_LAT)*cos(g2.rad_LAT)*
-		sin(delta_LONG)*sin(delta_LONG);
-
-	c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-	if (metric)
-		return c * EARTH_RADIUS_KILOMETERS;
-	else
-		return c * EARTH_RADIUS_MILES;
 }
 
 
@@ -101,8 +64,6 @@ void gps::enterCoordinates(bool default_Prompts)
 	getline(cin, parse);
 
 	parseCoordinates(parse);
-
-	rad();
 
 	return;
 }
@@ -173,12 +134,17 @@ void gps::parseCoordinates(string s)
 
 
 
-void gps::rad()
+double gps::getLat()
 {
-	//converts decimal degree coordinates to radial coordinates
-	rad_LAT = point_LAT* M_PI / 180;
-	rad_LONG = point_LONG* M_PI / 180;
-	return;
+	return point_LAT;
 }
+
+
+
+double gps::getLong()
+{
+	return point_LONG;
+}
+
 #endif
 
