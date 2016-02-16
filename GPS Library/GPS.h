@@ -12,7 +12,6 @@ public:
 	gps();
 	gps(const gps &g);
 	~gps();
-	double distance(const gps g1, const gps g2, bool metric);
 	double midpoint(const gps g1, const gps g2, gps &g3);
 	void print();
 	void enterCoordinates(bool default_Prompts);
